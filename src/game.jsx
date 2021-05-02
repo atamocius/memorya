@@ -75,5 +75,3 @@ export default function Game() {
     </div>
   );
 }
-
-function CardRow({ row }) {}

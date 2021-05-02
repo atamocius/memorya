@@ -4,6 +4,8 @@
 
   position: relative;
 
+  width: var(--width);
+  height: var(--height);
   min-width: var(--width);
   min-height: var(--height);
 
