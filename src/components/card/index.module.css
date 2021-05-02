@@ -1,5 +1,5 @@
 .root {
-  --width: 12em;
+  --width: 10em;
   --height: calc(var(--width) * 1.39);
 
   position: relative;
@@ -22,7 +22,7 @@
   width: 100%;
   height: 100%;
 
-  border-radius: 0.6em;
+  border-radius: 0.4em;
   box-shadow: 0 0 1.875em -0.3125em rgba(0, 0, 0, 0.3);
 
   cursor: pointer;
@@ -31,7 +31,7 @@
 }
 
 .card .shape {
-  --shape-width: 5em;
+  --shape-width: 4em;
 
   width: var(--shape-width);
   height: var(--shape-width);
@@ -45,5 +45,5 @@
 
 .card.back {
   background-color: rgb(255, 54, 74);
-  border: 1em solid white;
+  border: 0.8em solid white;
 }
