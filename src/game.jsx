@@ -18,7 +18,6 @@ const pairs = [
 ];
 
 export default function Game() {
-  // prettier-ignore
   const [cards, setCards] = useState(pairs);
   // prettier-ignore
   const [flipped, setFlipped] = useState([
@@ -29,29 +28,41 @@ export default function Game() {
   const [selectedPair, setSelectedPair] = useState([]);
   const [processing, setProcessing] = useState(false);
 
-  useEffect(() => {
-    shuffleCards();
-  }, []);
+  // Initial shuffle
+  useEffect(() => shuffleCards(), []);
 
   useEffect(async () => {
     if (selectedPair.length < 2) {
       return;
     }
 
+    // Prevent clicks
     setProcessing(true);
 
+    // Wait a bit to allow animations to finish
     await wait(500);
 
+    // If the selected pair is not a match,
+    // flip the selected cards face down
     if (!isMatch(...selectedPair)) {
-      unflipPair(...selectedPair);
-      // await wait(400);
+      await unflipPair(...selectedPair);
+      setProcessing(false);
+      return;
     }
 
+    // If all cards have been matched,
+    // all cards are flipped facing down
+    // and then cards are shuffled
     if (isExhausted()) {
       await unflipAll();
       shuffleCards();
+      setProcessing(false);
+      return;
     }
 
+    // Reaching this point means
+    // the selected pair is a match
+    // but not all cards have been exhausted
     setSelectedPair([]);
     setProcessing(false);
   }, [flipped]);
@@ -59,21 +70,27 @@ export default function Game() {
   const shuffleCards = () => setCards(shuffle(cards.slice()));
   const isExhausted = () => !flipped.includes(false);
   const isMatch = (a, b) => cards[a] === cards[b];
-  const unflipPair = (a, b) => {
+  const unflipPair = async (a, b) => {
     const copy = flipped.slice();
     copy[a] = false;
     copy[b] = false;
     setFlipped(copy);
+    await wait(400);
+    setSelectedPair([]);
+    await wait(400);
   };
   const unflipAll = async () => {
+    // A bit of a hack to animate all cards raising off the table
     setSelectedPair(Array.from(cards.keys()));
     await wait(400);
     setFlipped(Array(flipped.length).fill(false));
     await wait(400);
+    setSelectedPair([]);
+    await wait(400);
   };
 
   const handleClick = index => {
-    if (flipped[index]) {
+    if (selectedPair.length > 1 || flipped[index]) {
       return;
     }
 
