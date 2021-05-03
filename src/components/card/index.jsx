@@ -3,14 +3,12 @@ import classes from './index.module.css';
 import React, { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 
-import { paths as shapePaths } from '../../shapes';
+import { paths as shapePaths } from '~/shapes';
 
 const trans = (z, ry) =>
   `perspective(600px) translateZ(${z}px) rotateY(${ry}deg)`;
 
-const nullFunc = () => {};
-
-export default function Card({ shape, flipped, readOnly, onClick }) {
+export default function Card({ shape, flipped, onClick }) {
   const [hovered, setHovered] = useState(false);
 
   const { opacity, transform } = useSpring({
@@ -27,9 +25,9 @@ export default function Card({ shape, flipped, readOnly, onClick }) {
   return (
     <div
       className={classes.root}
-      onClick={readOnly ? nullFunc : onClick}
-      onPointerEnter={readOnly ? nullFunc : handlePointerEnter}
-      onPointerLeave={readOnly ? nullFunc : handlePointerLeave}
+      onClick={onClick}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
     >
       <animated.div
         className={`${classes.card} ${classes.front}`}
