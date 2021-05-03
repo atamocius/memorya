@@ -36,10 +36,11 @@ export default function Game() {
 
     if (!isMatch(...selectedPair)) {
       unflipPair(...selectedPair);
+      // await wait(400);
     }
 
     if (isExhausted()) {
-      unflipAll();
+      await unflipAll();
     }
 
     setSelectedPair([]);
@@ -54,7 +55,12 @@ export default function Game() {
     copy[b] = false;
     setFlipped(copy);
   };
-  const unflipAll = () => setFlipped(Array(flipped.length).fill(false));
+  const unflipAll = async () => {
+    setSelectedPair(Array.from(cards.keys()));
+    await wait(400);
+    setFlipped(Array(flipped.length).fill(false));
+    await wait(400);
+  };
 
   const handleClick = index => {
     if (flipped[index]) {
@@ -75,6 +81,7 @@ export default function Game() {
     <Card
       shape={cards[i]}
       flipped={flipped[i]}
+      selected={selectedPair.includes(i)}
       onClick={() => handleClick(i)}
     />
   );
