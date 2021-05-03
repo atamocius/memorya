@@ -38,7 +38,7 @@ export default function Card({ shape, flipped, selected, onClick }) {
     <div
       className={classes.root}
       onClick={onClick}
-      onPointerEnter={handlePointerEnter}
+      onPointerEnter={flipped ? null : handlePointerEnter}
       onPointerLeave={handlePointerLeave}
     >
       {/* Shadow */}
@@ -54,7 +54,11 @@ export default function Card({ shape, flipped, selected, onClick }) {
       {/* Front */}
       <animated.div
         className={`${classes.card} ${classes.front}`}
-        style={{ opacity, transform }}
+        style={{
+          cursor: flipped ? 'unset' : 'pointer',
+          opacity,
+          transform,
+        }}
       >
         <img className={classes.shape} src={svgShape} />
       </animated.div>
@@ -63,6 +67,7 @@ export default function Card({ shape, flipped, selected, onClick }) {
       <animated.div
         className={`${classes.card} ${classes.back}`}
         style={{
+          cursor: flipped ? 'unset' : 'pointer',
           opacity: opacity.to(o => 1 - o),
           transform,
         }}

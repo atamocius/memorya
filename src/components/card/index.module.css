@@ -27,8 +27,6 @@
   border-radius: 0.4em;
   box-shadow: 0 0 1em -0.2em rgba(0, 0, 0, 0.3);
 
-  cursor: pointer;
-
   will-change: transform, opacity;
 }
 
