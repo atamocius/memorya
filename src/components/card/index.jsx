@@ -17,14 +17,15 @@ export default function Card({ shape, flipped, selected, onClick }) {
   } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `
-      translateZ(${selected ? 80 : hovered ? 80 : 0}px)
+      translateZ(${selected ? 90 : hovered ? 90 : 3}px)
       rotateY(${flipped ? 180 : 0}deg)
     `,
     shadowTransform: `
       scaleX(${flipped ? -1 : 1})
+      scale(${selected ? 1.08 : hovered ? 1.08 : 1})
     `,
-    shadowColor: `rgba(0, 0, 0, ${selected ? 0.14 : hovered ? 0.14 : 0.2})`,
-    shadowBlur: `blur(${selected ? 0.8 : hovered ? 0.8 : 0}em)`,
+    shadowColor: `rgba(0, 0, 0, ${selected ? 0.2 : hovered ? 0.2 : 0.3})`,
+    shadowBlur: `blur(${selected ? 0.3 : hovered ? 0.3 : 0}em)`,
     config: { mass: 5, tension: 500, friction: 80 },
   });
 
