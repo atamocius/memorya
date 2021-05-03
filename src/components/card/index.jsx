@@ -24,7 +24,7 @@ export default function Card({ shape, flipped, selected, onClick }) {
       scaleX(${flipped ? -1 : 1})
       scale(${selected ? 1.08 : hovered ? 1.08 : 1})
     `,
-    shadowColor: `rgba(0, 0, 0, ${selected ? 0.2 : hovered ? 0.2 : 0.3})`,
+    shadowColor: `rgba(0, 0, 0, ${selected ? 0.3 : hovered ? 0.3 : 0.5})`,
     shadowBlur: `blur(${selected ? 0.3 : hovered ? 0.3 : 0}em)`,
     config: { mass: 5, tension: 500, friction: 80 },
   });

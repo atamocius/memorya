@@ -3,17 +3,23 @@ import classes from './game.module.css';
 import React, { useState, useEffect } from 'react';
 
 import Card from './components/card';
-import { wait } from '~/utils/helpers';
+import { wait, shuffle } from '~/utils/helpers';
 
 import { TYPES as ST } from './shapes';
 
+// prettier-ignore
+const pairs = [
+  ST.CIRCLE, ST.CIRCLE,
+  ST.SQUARE, ST.SQUARE,
+  ST.TRIANGLE, ST.TRIANGLE,
+  ST.DIAMOND, ST.DIAMOND,
+  ST.X, ST.X,
+  ST.THUMB, ST.THUMB,
+];
+
 export default function Game() {
   // prettier-ignore
-  const [cards, setCards] = useState([
-    ST.CIRCLE, ST.THUMB, ST.DIAMOND, ST.X,
-    ST.DIAMOND, ST.SQUARE, ST.TRIANGLE, ST.X,
-    ST.SQUARE, ST.TRIANGLE, ST.THUMB, ST.CIRCLE,
-  ]);
+  const [cards, setCards] = useState(pairs);
   // prettier-ignore
   const [flipped, setFlipped] = useState([
     false, false, false, false,
@@ -23,7 +29,9 @@ export default function Game() {
   const [selectedPair, setSelectedPair] = useState([]);
   const [processing, setProcessing] = useState(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    shuffleCards();
+  }, []);
 
   useEffect(async () => {
     if (selectedPair.length < 2) {
@@ -41,12 +49,14 @@ export default function Game() {
 
     if (isExhausted()) {
       await unflipAll();
+      shuffleCards();
     }
 
     setSelectedPair([]);
     setProcessing(false);
   }, [flipped]);
 
+  const shuffleCards = () => setCards(shuffle(cards.slice()));
   const isExhausted = () => !flipped.includes(false);
   const isMatch = (a, b) => cards[a] === cards[b];
   const unflipPair = (a, b) => {
