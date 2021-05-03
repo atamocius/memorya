@@ -32,7 +32,7 @@ export default function Game() {
   useEffect(() => shuffleCards(), []);
 
   useEffect(async () => {
-    if (selectedPair.length < 2) {
+    if (processing || selectedPair.length < 2) {
       return;
     }
 
@@ -90,7 +90,7 @@ export default function Game() {
   };
 
   const handleClick = index => {
-    if (selectedPair.length > 1 || flipped[index]) {
+    if (processing || selectedPair.length > 1 || flipped[index]) {
       return;
     }
 
@@ -114,10 +114,7 @@ export default function Game() {
   );
 
   return (
-    <div
-      className={classes.root}
-      style={{ pointerEvents: processing ? 'none' : 'unset' }}
-    >
+    <div className={classes.root}>
       <div className={classes.row}>
         {renderCard(0)}
         {renderCard(1)}
