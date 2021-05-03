@@ -1,6 +1,6 @@
 # memory-game
 
-A demo using [react](https://reactjs.org/), [react-spring](https://react-spring.io/), and [vite](https://vitejs.dev/).
+A memory game made using [react](https://reactjs.org/), [react-spring](https://react-spring.io/), and [vite](https://vitejs.dev/).
 
 > SVG shapes are from [iconmonstr](https://iconmonstr.com/)
 
