@@ -1,12 +1,16 @@
 .root {
   --perspective: 800px;
+  --width: 54em;
+  --height: 52em;
 
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 
-  width: 54em;
-  height: 52em;
+  width: var(--width);
+  height: var(--height);
+  min-width: var(--width);
+  min-height: var(--height);
 
   perspective: var(--perspective);
   perspective-origin: bottom center;
