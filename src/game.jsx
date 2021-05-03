@@ -3,70 +3,99 @@ import classes from './game.module.css';
 import React, { useState, useEffect } from 'react';
 
 import Card from './components/card';
+import { wait } from '~/utils/helpers';
 
 import { TYPES as ST } from './shapes';
 
 export default function Game() {
-  const [state, setState] = useState({
-    // prettier-ignore
-    values: [
-      ST.CIRCLE, ST.THUMB, ST.DIAMOND, ST.X,
-      ST.DIAMOND, ST.SQUARE, ST.TRIANGLE, ST.X,
-      ST.SQUARE, ST.TRIANGLE, ST.THUMB, ST.CIRCLE,
-    ],
-    // prettier-ignore
-    flipped: [
-      false, false, false, false,
-      false, false, false, false,
-      false, false, false, false,
-    ],
-    selectedPair: [],
-  });
+  // prettier-ignore
+  const [cards, setCards] = useState([
+    ST.CIRCLE, ST.THUMB, ST.DIAMOND, ST.X,
+    ST.DIAMOND, ST.SQUARE, ST.TRIANGLE, ST.X,
+    ST.SQUARE, ST.TRIANGLE, ST.THUMB, ST.CIRCLE,
+  ]);
+  // prettier-ignore
+  const [flipped, setFlipped] = useState([
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false, false,
+  ]);
+  const [selectedPair, setSelectedPair] = useState([]);
+  const [processing, setProcessing] = useState(false);
 
   useEffect(() => {}, []);
 
-  useEffect(() => {
-    console.log('🧮', 'Check matches!');
-  }, [state.flipped]);
+  useEffect(async () => {
+    if (selectedPair.length < 2) {
+      return;
+    }
+
+    setProcessing(true);
+
+    await wait(500);
+
+    if (!isMatch(...selectedPair)) {
+      unflipPair(...selectedPair);
+    }
+
+    if (isExhausted()) {
+      unflipAll();
+    }
+
+    setSelectedPair([]);
+    setProcessing(false);
+  }, [flipped]);
+
+  const isExhausted = () => !flipped.includes(false);
+  const isMatch = (a, b) => cards[a] === cards[b];
+  const unflipPair = (a, b) => {
+    const copy = flipped.slice();
+    copy[a] = false;
+    copy[b] = false;
+    setFlipped(copy);
+  };
+  const unflipAll = () => setFlipped(Array(flipped.length).fill(false));
 
   const handleClick = index => {
-    const flippedCopy = state.flipped.slice();
+    if (flipped[index]) {
+      return;
+    }
+
+    const flippedCopy = flipped.slice();
     flippedCopy[index] = true;
 
-    console.log('🤪', 'flipped!');
+    const pairCopy = selectedPair.slice();
+    pairCopy.push(index);
 
-    setState({
-      ...state,
-      flipped: flippedCopy,
-    });
+    setFlipped(flippedCopy);
+    setSelectedPair(pairCopy);
   };
 
-  const renderCard = i => {
-    return (
-      <Card
-        shape={state.values[i]}
-        flipped={state.flipped[i]}
-        onClick={() => handleClick(i)}
-      />
-    );
-  };
+  const renderCard = i => (
+    <Card
+      shape={cards[i]}
+      flipped={flipped[i]}
+      onClick={() => handleClick(i)}
+    />
+  );
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={{ pointerEvents: processing ? 'none' : 'unset' }}
+    >
       <div className={classes.row}>
         {renderCard(0)}
         {renderCard(1)}
         {renderCard(2)}
         {renderCard(3)}
       </div>
-
       <div className={classes.row}>
         {renderCard(4)}
         {renderCard(5)}
         {renderCard(6)}
         {renderCard(7)}
       </div>
-
       <div className={classes.row}>
         {renderCard(8)}
         {renderCard(9)}

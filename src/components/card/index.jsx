@@ -11,8 +11,7 @@ export default function Card({ shape, flipped, onClick }) {
   const { opacity, transform } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `
-      perspective(600px)
-      translateZ(${hovered ? 80 : 0}px)
+      translateZ(${hovered ? 50 : 0}px)
       rotateY(${flipped ? 180 : 0}deg)
     `,
     config: { mass: 5, tension: 500, friction: 80 },

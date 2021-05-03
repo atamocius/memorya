@@ -1,13 +1,19 @@
 .root {
+  --perspective: 800px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 
   width: 54em;
   height: 52em;
+
+  perspective: var(--perspective);
+  perspective-origin: bottom center;
+  transform: perspective(var(--perspective)) rotateX(30deg) translateY(-6.5em);
 }
 
-.root .row {
+.row {
   display: flex;
   justify-content: space-evenly;
 }
