@@ -3,11 +3,11 @@
   flex-direction: column;
   justify-content: space-evenly;
 
-  width: 100%;
-  height: 100vh;
+  width: 54em;
+  height: 52em;
 }
 
-.root > .row {
+.root .row {
   display: flex;
   justify-content: space-evenly;
 }

@@ -20,6 +20,7 @@ export default function Game() {
       false, false, false, false,
       false, false, false, false,
     ],
+    selectedPair: [],
   });
 
   useEffect(() => {}, []);
