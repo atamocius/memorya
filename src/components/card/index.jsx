@@ -5,15 +5,16 @@ import { useSpring, animated } from 'react-spring';
 
 import { paths as shapePaths } from '~/shapes';
 
-const trans = (z, ry) =>
-  `perspective(600px) translateZ(${z}px) rotateY(${ry}deg)`;
-
 export default function Card({ shape, flipped, onClick }) {
   const [hovered, setHovered] = useState(false);
 
   const { opacity, transform } = useSpring({
     opacity: flipped ? 1 : 0,
-    transform: [hovered ? 80 : 0, flipped ? 180 : 0],
+    transform: `
+      perspective(600px)
+      translateZ(${hovered ? 80 : 0}px)
+      rotateY(${flipped ? 180 : 0}deg)
+    `,
     config: { mass: 5, tension: 500, friction: 80 },
   });
 
@@ -31,10 +32,7 @@ export default function Card({ shape, flipped, onClick }) {
     >
       <animated.div
         className={`${classes.card} ${classes.front}`}
-        style={{
-          opacity,
-          transform: transform.to(trans),
-        }}
+        style={{ opacity, transform }}
       >
         <img className={classes.shape} src={svgShape} />
       </animated.div>
@@ -43,7 +41,7 @@ export default function Card({ shape, flipped, onClick }) {
         className={`${classes.card} ${classes.back}`}
         style={{
           opacity: opacity.to(o => 1 - o),
-          transform: transform.to(trans),
+          transform,
         }}
       />
     </div>
