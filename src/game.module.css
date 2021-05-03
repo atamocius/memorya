@@ -1,7 +1,7 @@
 .root {
   --perspective: 800px;
-  --width: 54em;
-  --height: 52em;
+  --width: 50em;
+  --height: 50em;
 
   display: flex;
   flex-direction: column;
