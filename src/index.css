@@ -10,7 +10,7 @@ html {
 
 body {
   font-family: sans-serif;
-  font-size: 14px;
+  font-size: 16px;
 
   margin: 0;
 
@@ -24,4 +24,34 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 1030px), (max-height: 690px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 910px), (max-height: 600px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 775px), (max-height: 512px) {
+  body {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 645px), (max-height: 425px) {
+  body {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 520px), (max-height: 340px) {
+  body {
+    font-size: 6px;
+  }
 }

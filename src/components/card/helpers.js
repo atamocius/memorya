@@ -1,4 +1,4 @@
-const HOVER_HEIGHT = { min: 3, max: 80 };
+const HOVER_HEIGHT = { min: 0.1875, max: 5 };
 const SHADOW_SIZE = { min: 1, max: 1.08 };
 const SHADOW_ALPHA = { min: 0.3, max: 0.5 };
 const SHADOW_BLUR = { min: 0.3, max: 0 };

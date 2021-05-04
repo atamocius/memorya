@@ -11,7 +11,7 @@
   min-width: var(--width);
   min-height: var(--height);
 
-  transform: perspective(800px) rotateX(35deg) translateY(-7.5em);
+  transform: perspective(50em) rotateX(35deg) translateY(-5.5em);
 
   transform-style: preserve-3d;
 }
