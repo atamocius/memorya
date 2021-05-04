@@ -10,6 +10,8 @@
   min-height: var(--height);
 
   user-select: none;
+
+  transform-style: preserve-3d;
 }
 
 .card {

@@ -17,7 +17,7 @@ export default function Card({ shape, flipped, selected, onClick }) {
   } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `
-      translateZ(${selected ? 90 : hovered ? 90 : 3}px)
+      translateZ(${selected ? 80 : hovered ? 80 : 3}px)
       rotateY(${flipped ? 180 : 0}deg)
     `,
     shadowTransform: `

@@ -1,5 +1,4 @@
 .root {
-  --perspective: 800px;
   --width: 50em;
   --height: 50em;
 
@@ -12,12 +11,14 @@
   min-width: var(--width);
   min-height: var(--height);
 
-  perspective: var(--perspective);
-  perspective-origin: bottom center;
-  transform: perspective(var(--perspective)) rotateX(30deg) translateY(-6.5em);
+  transform: perspective(800px) rotateX(30deg) translateY(-6.5em);
+
+  transform-style: preserve-3d;
 }
 
 .row {
   display: flex;
   justify-content: space-evenly;
+
+  transform-style: preserve-3d;
 }
