@@ -15,6 +15,8 @@ body {
   margin: 0;
 
   height: 100vh;
+
+  background-color: rgb(208, 248, 255);
 }
 
 #root {
