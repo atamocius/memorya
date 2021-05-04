@@ -1,4 +1,4 @@
-# memory-game
+# memorya
 
 A memory game made using [react](https://reactjs.org/), [react-spring](https://react-spring.io/), and [vite](https://vitejs.dev/).
 
