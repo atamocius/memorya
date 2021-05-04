@@ -5,6 +5,8 @@ import { useSpring, animated } from 'react-spring';
 
 import { paths as shapePaths } from '~/shapes';
 
+import * as h from './helpers';
+
 export default function Card({ shape, flipped, selected, onClick }) {
   const [hovered, setHovered] = useState(false);
 
@@ -13,32 +15,33 @@ export default function Card({ shape, flipped, selected, onClick }) {
     transform,
     shadowTransform,
     shadowColor,
-    shadowBlur,
+    shadowFilter,
   } = useSpring({
-    opacity: flipped ? 1 : 0,
+    opacity: h.calcOpacity(flipped),
     transform: `
-      translateZ(${selected ? 80 : hovered ? 80 : 3}px)
-      rotateY(${flipped ? 180 : 0}deg)
+      translateZ(${h.calcHover(selected, hovered)}px)
+      rotateY(${h.calcFlip(flipped)}deg)
     `,
     shadowTransform: `
-      scaleX(${flipped ? -1 : 1})
-      scale(${selected ? 1.08 : hovered ? 1.08 : 1})
+      scaleX(${h.calcShadowFlip(flipped)})
+      scale(${h.calcShadowSize(selected, hovered)})
     `,
-    shadowColor: `rgba(0, 0, 0, ${selected ? 0.3 : hovered ? 0.3 : 0.5})`,
-    shadowBlur: `blur(${selected ? 0.3 : hovered ? 0.3 : 0}em)`,
+    shadowColor: `rgba(0, 0, 0, ${h.calcShadowAlpha(selected, hovered)})`,
+    shadowFilter: `blur(${h.calcShadowBlur(selected, hovered)}em)`,
     config: { mass: 5, tension: 500, friction: 80 },
   });
 
-  const handlePointerEnter = () => setHovered(true);
+  const handlePointerEnter = flipped ? null : () => setHovered(true);
   const handlePointerLeave = () => setHovered(false);
 
   const svgShape = shapePaths[shape];
+  const cursor = h.calcCursor(flipped);
 
   return (
     <div
       className={classes.root}
       onClick={onClick}
-      onPointerEnter={flipped ? null : handlePointerEnter}
+      onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
     >
       {/* Shadow */}
@@ -47,7 +50,7 @@ export default function Card({ shape, flipped, selected, onClick }) {
         style={{
           transform: shadowTransform,
           backgroundColor: shadowColor,
-          filter: shadowBlur,
+          filter: shadowFilter,
         }}
       />
 
@@ -55,7 +58,7 @@ export default function Card({ shape, flipped, selected, onClick }) {
       <animated.div
         className={`${classes.card} ${classes.front}`}
         style={{
-          cursor: flipped ? 'unset' : 'pointer',
+          cursor,
           opacity,
           transform,
         }}
@@ -67,7 +70,7 @@ export default function Card({ shape, flipped, selected, onClick }) {
       <animated.div
         className={`${classes.card} ${classes.back}`}
         style={{
-          cursor: flipped ? 'unset' : 'pointer',
+          cursor,
           opacity: opacity.to(o => 1 - o),
           transform,
         }}

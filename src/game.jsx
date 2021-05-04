@@ -90,7 +90,7 @@ export default function Game() {
   };
 
   const handleClick = index => {
-    if (processing || selectedPair.length > 1 || flipped[index]) {
+    if (processing || selectedPair.length >= 2 || flipped[index]) {
       return;
     }
 
