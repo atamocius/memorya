@@ -4,4 +4,4 @@ A memory game made using [react](https://reactjs.org/), [react-spring](https://r
 
 > SVG shapes are from [iconmonstr](https://iconmonstr.com/)
 
-![memory-game](https://user-images.githubusercontent.com/6222358/116943891-021e7b00-aca7-11eb-9686-e45d393b2c5c.gif)
+![memorya](https://user-images.githubusercontent.com/6222358/117038122-d8fafa80-ad39-11eb-81a1-956927867ff2.gif)
