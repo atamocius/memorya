@@ -1,28 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-import Table from './components/table';
 import { wait, shuffle } from '~/utils/helpers';
+import { names } from '~/shapes';
 
-import { TYPES as ST } from './shapes';
-
-// prettier-ignore
-const pairs = [
-  ST.CIRCLE, ST.CIRCLE,
-  ST.SQUARE, ST.SQUARE,
-  ST.TRIANGLE, ST.TRIANGLE,
-  ST.DIAMOND, ST.DIAMOND,
-  ST.X, ST.X,
-  ST.THUMB, ST.THUMB,
-];
-
-export default function Game() {
-  const [cards, setCards] = useState(pairs);
-  // prettier-ignore
-  const [flipped, setFlipped] = useState([
-    false, false, false, false,
-    false, false, false, false,
-    false, false, false, false,
-  ]);
+export default function useLogic() {
+  const [cards, setCards] = useState(names.concat(names));
+  const [flipped, setFlipped] = useState(Array(cards.length).fill(false));
   const [selectedPair, setSelectedPair] = useState([]);
   const [processing, setProcessing] = useState(false);
 
@@ -87,7 +70,7 @@ export default function Game() {
     await wait(400);
   };
 
-  const handleClick = index => {
+  const flipCard = index => {
     if (processing || selectedPair.length >= 2 || flipped[index]) {
       return;
     }
@@ -102,12 +85,10 @@ export default function Game() {
     setSelectedPair(pairCopy);
   };
 
-  return (
-    <Table
-      cards={cards}
-      flipped={flipped}
-      selectedPair={selectedPair}
-      onCardClick={handleClick}
-    />
-  );
+  return {
+    cards,
+    flipped,
+    selectedPair,
+    flipCard,
+  };
 }

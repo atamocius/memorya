@@ -14,11 +14,4 @@ export const paths = {
   thumb,
 };
 
-export const TYPES = {
-  SQUARE: 'square',
-  CIRCLE: 'circle',
-  TRIANGLE: 'triangle',
-  X: 'x',
-  DIAMOND: 'diamond',
-  THUMB: 'thumb',
-};
+export const names = Object.keys(paths);
