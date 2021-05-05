@@ -5,14 +5,18 @@ import Table from '~/components/table';
 import useLogic from './logic';
 
 export default function Game() {
-  const { cards, flipped, selectedPair, flipCard } = useLogic();
+  const { processing, cards, flipped, selectedPair, flipCard } = useLogic();
+
+  const pointerEvents = processing ? 'none' : 'unset';
 
   return (
-    <Table
-      cards={cards}
-      flipped={flipped}
-      selectedPair={selectedPair}
-      onCardClick={flipCard}
-    />
+    <div style={{ pointerEvents }}>
+      <Table
+        cards={cards}
+        flipped={flipped}
+        selectedPair={selectedPair}
+        onCardClick={flipCard}
+      />
+    </div>
   );
 }

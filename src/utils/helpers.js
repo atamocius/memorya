@@ -7,7 +7,8 @@ export function wait(ms) {
 }
 
 /**
- * @param {any[]} array
+ * @template T
+ * @param {T[]} array
  */
 export function shuffle(array) {
   let m = array.length;
