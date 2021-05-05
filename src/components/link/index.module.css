@@ -1,0 +1,12 @@
+.root {
+  font-size: 14px;
+
+  position: fixed;
+  top: 1em;
+  right: 1.2em;
+}
+
+.root a {
+  text-decoration: none;
+  color: rgb(135, 214, 228);
+}
