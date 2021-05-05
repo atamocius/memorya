@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { wait, shuffle } from '~/utils/helpers';
 import { names } from '~/shapes';
+import { playCardFlipSfx, playCardFlipMultipleSfx } from '~/audio';
 
 export default function useLogic() {
   const [cards, setCards] = useState(names.concat(names));
@@ -67,6 +68,8 @@ export default function useLogic() {
     copy[a] = false;
     copy[b] = false;
     setFlipped(copy);
+    // Play sfx
+    playCardFlipSfx();
     // Let the "flip" animation finish
     await wait(400);
     // Lower the selected cards on the table by unmarking them as "selected"
@@ -82,6 +85,8 @@ export default function useLogic() {
     await wait(400);
     // Flip all cards face down
     setFlipped(Array(flipped.length).fill(false));
+    // Play sfx
+    playCardFlipMultipleSfx();
     // Let the "flip" animation finish
     await wait(400);
     // Lower all cards on the table by unmarking them as "selected"
@@ -99,13 +104,17 @@ export default function useLogic() {
       return;
     }
 
+    // Play sfx
+    playCardFlipSfx();
+
+    // Flip the selected card
     const flippedCopy = flipped.slice();
     flippedCopy[index] = true;
+    setFlipped(flippedCopy);
 
+    // Mark the card as "selected"
     const pairCopy = selectedPair.slice();
     pairCopy.push(index);
-
-    setFlipped(flippedCopy);
     setSelectedPair(pairCopy);
   };
 
