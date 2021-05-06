@@ -7,7 +7,7 @@ import * as h from './helpers';
  * @param {boolean} flipped
  * @param {boolean} selected
  */
-export default function useLogic(flipped, selected) {
+export default function useStore(flipped, selected) {
   const [hovered, setHovered] = useState(false);
 
   const interpolations = useSpring({

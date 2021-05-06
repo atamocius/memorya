@@ -5,7 +5,7 @@ import { animated } from 'react-spring';
 
 import { paths as shapePaths } from '~/shapes';
 
-import useLogic from './logic';
+import useStore from './store';
 
 export default function Card({ shape, flipped, selected, onClick }) {
   const {
@@ -19,7 +19,7 @@ export default function Card({ shape, flipped, selected, onClick }) {
     cursor,
     raiseCard,
     lowerCard,
-  } = useLogic(flipped, selected);
+  } = useStore(flipped, selected);
 
   const svgShape = shapePaths[shape];
 

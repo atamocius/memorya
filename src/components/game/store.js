@@ -4,7 +4,7 @@ import { wait, shuffle } from '~/utils/helpers';
 import { names } from '~/shapes';
 import { playCardFlipSfx, playCardFlipMultipleSfx } from '~/audio';
 
-export default function useLogic() {
+export default function useStore() {
   const [cards, setCards] = useState(names.concat(names));
   const [flipped, setFlipped] = useState(Array(cards.length).fill(false));
   const [selectedPair, setSelectedPair] = useState([]);

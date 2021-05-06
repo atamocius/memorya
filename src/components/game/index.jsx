@@ -3,10 +3,10 @@ import React from 'react';
 import Table from '~/components/table';
 import Link from '~/components/link';
 
-import useLogic from './logic';
+import useStore from './store';
 
 export default function Game() {
-  const { processing, cards, flipped, selectedPair, flipCard } = useLogic();
+  const { processing, cards, flipped, selectedPair, flipCard } = useStore();
 
   const pointerEvents = processing ? 'none' : 'unset';
 
